@@ -50,7 +50,8 @@ The decoder creates the segmentation map by progressively upsampling the spatial
 # Skip Connections:
 One of the fundamental benefits of UNet is the utilization of skip connections, which link corresponding decoder and encoder layers directly. They solve the problem of vanishing gradients and enhance the model's capacity to learn more nuances. These are attained through the utilization of torch.cat(), a function that concatenates the upsampled feature maps and the encoder feature maps.
 
- 
+ ![UNet architecture](https://github.com/user-attachments/assets/9676e3c7-6d6b-49eb-82ab-047537dd20d2)
+
 # Denoising Diffusion Probabilistic Model (DDPM)
 The DDPM is a generative model that learns to generate high-quality images by progressively eliminating noise from noisy data via a diffusion process. The model includes a forward diffusion process (for adding noise) and a reverse diffusion process (for denoising) where a UNet is used as the base architecture.
 1.  Forward Diffusion Process
@@ -86,6 +87,8 @@ The original images contained the tumor regions with distinct boundaries and str
 The reconstructed denoised images from the model through DDPM were not similar to the original images, and the structural detail did not restore as anticipated. Rather, the model output had distortions and artifacts.
 Qualitative assessment illustrated the loss of significant spatial features, especially after introducing a high noise level. The model did not learn to capture the patterns of tumor growth distribution and, produced outputs that were visually inferior to the noisy inputs.
 
+![sample_15](https://github.com/user-attachments/assets/7ea0c7bd-d1b7-4c76-886d-2f7820cc16dd)
+
 # Limitations
 
 The model showed poor robustness to noise features. The model, however, did not denoise well. Not only did the model fail to reconstruct the original images well, but it also generated images that were more distorted than the noisy inputs.
@@ -94,5 +97,8 @@ The diffusion process is multi-step iterative to denoise the image progressively
 
 Although it produces denoised images, the model is not very interpretable, and it is hard to comprehend how noise is eliminated and what features of the images are retained. Model interpretability is very important in medical imaging since physicians and healthcare experts must trust and validate the model outputs. The inclusion of attention mechanisms or feature visualization methods would enhance model transparency.
 
+![good_sample_015](https://github.com/user-attachments/assets/a589e47c-2d62-4bb6-8e6b-173d910ad8e8)
+
 # FUTURE WORK
 The project utilized the ISPY1 dataset, comprising longitudinal breast cancer image data of total size approximately 75GB. Since the size of the dataset is very large, its processing on regular personal systems is highly infeasible. Instead, it needs a more advanced and high-performance computational setup capable of processing such large-scale data effectively. Noise-specific augmentations that mimic medical imaging variations (e.g., MRI noise patterns) can help the model generalize better to real data. Adding a multi-modal fusion strategy to the UNet architecture can enable the model to benefit from complementary information. After achieving desirable accuracy for the model, the long-term final goal would be the deployment of the model in real clinical environments. Creating an accessible interface through which clinicians can upload images and get denoised outputs in real time would be a usability improvement. The model may be modified to include patient-specific information (e.g., age, tumor type) to generate patient-specific denoising profiles with improved predictive power for specific cases. The proposed short-term and long-term follow-up projects have the potential to notably improve its performance, generalizability, and feasibility in real-world applications.
+
